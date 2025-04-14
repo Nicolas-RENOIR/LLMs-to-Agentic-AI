@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pytz
+python-multipart
+requests
+langchain_mistralai
+langchain
+google_generativeai
+google-genai
+pillow
+langchain_community
+langchain-core 
+langchain-community
+faiss-cpu
+mysql-connector-python
