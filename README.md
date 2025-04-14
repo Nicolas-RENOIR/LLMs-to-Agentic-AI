@@ -60,4 +60,4 @@ Each **autonomous agent** is hosted on a dedicated **AWS virtual machine**, prov
 - **[Grégoire WORONIAK](https://github.com/Gregoire-W)**  
 - **[Lucas BARREZ](https://github.com/lucasbarrez)**  
 - **[Killian FOURNIER](https://github.com/Killianx256)**  
-- **[Lucas LOPES](https://github.com/Killianx256)**
+- **[Lucas LOPES](mailto:lopeslucas0311@gmail.com)**
