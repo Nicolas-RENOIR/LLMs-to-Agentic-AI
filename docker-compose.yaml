@@ -1,0 +1,73 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./bdd/mysql_data:/var/lib/mysql
+      - ./bdd/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  api:
+    build: ./api/
+    container_name: fastapi_container
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: mydatabase
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+    volumes:
+      - ./api/:/app
+    
+  pipeline:
+    build: ./backend/
+    container_name: backend_container
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    env_file:
+      - ./backend/src/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: mydatabase
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+    volumes:
+      - ./backend/:/app
+  
+
+  front:
+    build: ./front/
+    container_name: streamlit_front
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+      - pipeline
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: mydatabase
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+    volumes:
+      - ./front/:/app
+
+volumes:
+  mysql_data:
