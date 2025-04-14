@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pytz
+python-multipart
+requests
+langchain_mistralai
+langchain
+streamlit
